@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "668338593245",
+    "firebase_url": "https://crazychemistapp.firebaseio.com",
+    "project_id": "crazychemistapp",
+    "storage_bucket": "crazychemistapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668338593245:android:2a9fb497e82de92d",
+        "android_client_info": {
+          "package_name": "com.mycompany.myngdroidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668338593245-dsbs2prcbonar6pi0jl9dbp1jdcijd60.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.myngdroidapp",
+            "certificate_hash": "08f32ee5208c0778151a65ba648e9d16e647ac5f"
+          }
+        },
+        {
+          "client_id": "668338593245-gfv6q8atp44igm025ndp7qrqksa1a17g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.myngdroidapp",
+            "certificate_hash": "2887748cbf540acc57dd6921e6223ffec0a36d82"
+          }
+        },
+        {
+          "client_id": "668338593245-8dm1mabniu2gi0uju0v0fh4saci56eb7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.myngdroidapp",
+            "certificate_hash": "56bb324d5f06229027743c44a4560654bd4c1ef1"
+          }
+        },
+        {
+          "client_id": "668338593245-io8bqg2hr0i67dcsmr6k006efp2svqvc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH9IyNuFZInbh7UyZIZ5xhy_uTFsyZWTw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668338593245-io8bqg2hr0i67dcsmr6k006efp2svqvc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

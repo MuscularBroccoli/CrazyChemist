@@ -1,0 +1,4 @@
+#Mon Jul 23 15:49:19 EET 2018
+base.0=C\:\\dev\\android\\workspace\\CrazyChemist\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\6
+path.0=classes.dex
+renamed.0=classes.dex
