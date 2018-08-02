@@ -26,6 +26,7 @@ public class VirtualJoystick{
     private boolean rightCheck, leftCheck, upCheck, downCheck, allCheck;
     private int firstElement, secontElement, thirdElement;
     private int iX, iY;
+    private int[] index;
 
 
     public VirtualJoystick() {
@@ -39,25 +40,27 @@ public class VirtualJoystick{
         secontElement = 1;
         thirdElement = 2;
 
+        index = new int[3];
         iX = 0;
-        iY = 0;
+        iY = 1;
     }
 
-    public int move(int[][] touchPoint){
-        iX = 0;
+    public int[] touch(int[][] touchPoint){
+        index[iX] = 0;
+        index[iY] = 0;
         for (int i = 0; i < touchPoint.length; i++) {
             if (touchPoint[i][firstElement] >= rightDstX && touchPoint[i][firstElement] <= rightDstX + rightDstW && touchPoint[i][thirdElement] == 0) {
                 if (touchPoint[i][secontElement] >= rightDstY && touchPoint[i][secontElement] <= rightDstY + rightDstH) {
-                    iX = 1;
+                    index[iX] = 1;
                 }
             }
             if (touchPoint[i][firstElement] >= leftDstX && touchPoint[i][firstElement] <= leftDstX + leftDstW && touchPoint[i][thirdElement] == 0) {
                 if (touchPoint[i][secontElement] >= leftDstY && touchPoint[i][secontElement] <= leftDstY + leftDstH) {
-                    iX = -1;
+                    index[iX] = -1;
                 }
             }
         }
-        return iX;
+        return index;
     }
 
     public void drawJoystick(Canvas canvas, NgApp root, int direction) {
@@ -72,8 +75,8 @@ public class VirtualJoystick{
                 rightSrcY = 0;
                 rightDstW = root.proportionWidth(rightSrcW);
                 rightDstH = root.proportionHeight(rightSrcH);
-                rightDstX = (root.getWidth() / 10);
-                rightDstY = (root.getHeight()) - (root.getHeight() / 8);
+                rightDstX = root.proportionWidth(192); //(root.getWidth() / 10);
+                rightDstY = root.getHeight() - root.proportionHeight(135); //(root.getHeight()) - (root.getHeight() / 8);
 
                 rightSource = new Rect();
                 rightDestination = new Rect();
@@ -94,8 +97,8 @@ public class VirtualJoystick{
                 leftSrcY = 0;
                 leftDstW = root.proportionWidth(leftSrcW);
                 leftDstH = root.proportionHeight(leftSrcH);
-                leftDstX = (root.getWidth() / 10) - leftDstW;
-                leftDstY = (root.getHeight()) - (root.getHeight() / 8);
+                leftDstX = root.proportionWidth(192) - leftDstW;
+                leftDstY = (root.getHeight()) - root.proportionHeight(135);
 
                 leftSource = new Rect();
                 leftDestination = new Rect();
@@ -116,8 +119,8 @@ public class VirtualJoystick{
                 upSrcY = 0;
                 upDstW = root.proportionWidth(upSrcW);
                 upDstH = root.proportionHeight(upSrcH);
-                upDstX = (root.getWidth() / 10);
-                upDstY = (root.getHeight()) - (root.getHeight() / 8) + upDstH;
+                upDstX = root.proportionWidth(192);
+                upDstY = (root.getHeight()) - root.proportionHeight(135) + upDstH;
 
                 upSource = new Rect();
                 upDestination = new Rect();
@@ -138,8 +141,8 @@ public class VirtualJoystick{
                 downSrcY = 0;
                 downDstW = root.proportionWidth(downSrcW);
                 downDstH = root.proportionHeight(downSrcH);
-                downDstX = (root.getWidth() / 10);
-                downDstY = (root.getHeight()) - (root.getHeight() / 8) - downDstH;
+                downDstX = root.proportionWidth(192);
+                downDstY = (root.getHeight()) - root.proportionHeight(135) - downDstH;
 
                 downSource = new Rect();
                 downDestination = new Rect();
@@ -160,8 +163,8 @@ public class VirtualJoystick{
                 allSrcY = 0;
                 allDstW = root.proportionWidth(allSrcW);
                 allDstH = root.proportionHeight(allSrcH);
-                allDstX = (root.getWidth() / 10) ;
-                allDstY = (root.getHeight()) - (root.getHeight() / 8);
+                allDstX = root.proportionWidth(192);
+                allDstY = (root.getHeight()) - root.proportionHeight(135);
 
                 allSource = new Rect();
                 allDestination = new Rect();

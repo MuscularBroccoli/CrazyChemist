@@ -3,7 +3,6 @@ package com.ngdroidapp;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 
 /**
  * Created by A. Melik ERSOY on 07.09.2018.
@@ -11,20 +10,18 @@ import android.util.Log;
  */
 
 public class Object {
-
-    static int IDLE = 0, WALK = 1, RUN = 2, TOTAL_ANIMATION = 3, TOTAL_FRAMENUM = 10;
-
     private Bitmap object;
-    private Bitmap[][] animations;
     private Rect source, destination;
     private int sourceX, sourceY, sourceW, sourceH, destinationX, destinationY, destinationW, destinationH;
-    private int indexX, indexY, velocityX, velocityY;
+    private int iX,iY, velocityX, velocityY;
     private int firstFrameNum, lastFrameNum, frameNum;
 
-    public Object() {
+    protected NgApp root;
+
+    public Object(NgApp ngApp) {
+        root = ngApp;
         source = new Rect();
         destination = new Rect();
-        animations = new Bitmap[TOTAL_ANIMATION][10];
         sourceX = 0;
         sourceY = 0;
         sourceW = 0;
@@ -33,21 +30,13 @@ public class Object {
         destinationY = 0;
         destinationW = 0;
         destinationH = 0;
-        indexX = 0;
-        indexY = 0;
+        iX = 0;
+        iY = 1;
         velocityX = 0;
         velocityY = 0;
         firstFrameNum = 0;
         lastFrameNum = 0;
         frameNum = 0;
-    }
-
-    public Bitmap[][] getAnimations() {
-        return animations;
-    }
-
-    public void setAnimations(Bitmap[][] animations) {
-        this.animations = animations;
     }
 
     public Bitmap getObject() {
@@ -71,7 +60,7 @@ public class Object {
     }
 
     public void setDestination() {
-        destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
+        destination.set(root.proportionWidth(destinationX), root.proportionHeight(destinationY), root.proportionWidth(destinationX + destinationW), root.proportionHeight(destinationY + destinationH));
     }
 
     public int getSourceX() {
@@ -138,22 +127,6 @@ public class Object {
         this.destinationH = destinationH;
     }
 
-    public int getIndexX() {
-        return indexX;
-    }
-
-    public void setIndexX(int indexX) {
-        this.indexX = indexX;
-    }
-
-    public int getIndexY() {
-        return indexY;
-    }
-
-    public void setIndexY(int indexY) {
-        this.indexY = indexY;
-    }
-
     public int getVelocityX() {
         return velocityX;
     }
@@ -174,56 +147,19 @@ public class Object {
         canvas.drawBitmap(object, source, destination, null);
     }
 
-    public void move(int indexX, int indexY) {
-        if(indexX == 0 && indexY == 0) {
-            playAnimation(IDLE);
-        }
-
-        if(indexX == 1) {
-            destinationX += velocityX * indexX;
-            destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
-            playAnimation(RUN);
-        } else if(indexX == -1) {
-            destinationX += velocityX * indexX;
-            destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
-            playAnimation(RUN);
-        }
-
-        if(indexY == 1) {
-            destinationY += velocityY * indexY;
-            destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
-            playAnimation(RUN);
-        } else if(indexY == -1) {
-            destinationY += velocityY * indexY;
-            destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
-            playAnimation(RUN);
-        }
+    public void move(int[] index, Bitmap[] animation) {
+        destinationX += velocityX * index[iX];
+        destinationY += velocityY * index[iY];
+        setDestination();
+        playAnimation(animation);
     }
 
-    public void move(int velocityX, int velocityY, int indexX, int indexY) {
-        if(indexX == 1) {
-            destinationX += velocityX * indexX;
-            destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
-        } else if(indexX == -1) {
-            destinationX += velocityX * indexX;
-            destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
-        }
-
-        if(indexY == 1) {
-            destinationY += velocityY * indexY;
-            destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
-        } else if(indexY == -1) {
-            destinationY += velocityY * indexY;
-            destination.set(destinationX, destinationY, destinationX + destinationW, destinationY + destinationH);
-        }
-    }
-
-    public void playAnimation(int animation) {
-        lastFrameNum = animations[animation].length;
-        frameNum++;
-        if(frameNum >= TOTAL_FRAMENUM) {
+    public void playAnimation(Bitmap[] animation) {
+        lastFrameNum = animation.length;
+        if(frameNum >= lastFrameNum) {
             frameNum = firstFrameNum;
         }
-        object = animations[animation][frameNum];
+        object = animation[frameNum];
+        frameNum++;
     }
 }
